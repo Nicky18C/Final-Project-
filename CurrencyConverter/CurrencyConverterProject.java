@@ -11,6 +11,7 @@ public class CurrencyConverterProject
 {
     static double finalValue1;
     static double rate;
+    static double EndAmount;
 
     public static final String[] InPocket = 
     {
@@ -105,33 +106,33 @@ public class CurrencyConverterProject
 
              switch (choose) 
              {
-                case "United States - $USD" -> $USDConverter();
-                case "Brazil - $BRL" -> $BRLConverter();
-                case "Argentina - $ARS" -> $ARSConverter();
-                case "Bolivia - $BOB" -> $BOBConverter();
-                case "$Chile - $CLP" -> $CLPConverter();
-                case "Colombia - $COP" -> $COPConverter();
-                case "Ecuador - $ECU" -> $ECUConverter();
-                case "Guyana - $GYD" -> $GYDConverter();
-                case "Paraguay - $PYG" -> $UYUConverter();
-                case "Peru - $PEN" -> $BsConverter();
-                case "Suriname - $SRD" -> $GTQConverter();
-                case "$Uruguay - $UYU" -> $HNLConverter();
-                case "El Salvador - $SVC" -> $NIOConverter();
-                case "Guatemala - $GTQ" -> ฿Converter();
-                case "Honduras - $HNL" -> ₡Converter();
-                case "Nicaragua - $NIO" -> $BZConverter();
-                case "Panama - $PAB" -> $BZConverter();
-                case "Costa Rica - $CRC" -> $BZConverter();
-                case "Belize - $BZD" -> $BZConverter();
-                case "Canada - $CAD" -> $BZConverter();
+                case "United States - $USD" : $USDConverter();
+                case "Brazil - $BRL" : $BRLConverter();
+                case "Argentina - $ARS" : $ARSConverter();
+                case "Bolivia - $BOB" : $BOBConverter();
+                case "$Chile - $CLP" : $CLPConverter();
+                case "Colombia - $COP" : $COPConverter();
+                case "Ecuador - $ECU" : $ECUConverter();
+                case "Guyana - $GYD" : $GYDConverter();
+                case "Paraguay - $PYG" : $UYUConverter();
+                case "Peru - $PEN" : $BsConverter();
+                case "Suriname - $SRD" : $GTQConverter();
+                case "$Uruguay - $UYU" : $HNLConverter();
+                case "El Salvador - $SVC" : $NIOConverter();
+                case "Guatemala - $GTQ" : ฿Converter();
+                case "Honduras - $HNL" : ₡Converter();
+                case "Nicaragua - $NIO" : $BZConverter();
+                case "Panama - $PAB" : $BZConverter();
+                case "Costa Rica - $CRC" : $BZConverter();
+                case "Belize - $BZD" : $BZConverter();
+                case "Canada - $CAD" : $BZConverter();
                 
 
 
 
-                case "$C" -> $CConverter();
+                case "$C" : $CConverter();
                 
-                default -> JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
+                default : JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
              }
 
 
@@ -220,43 +221,73 @@ public class CurrencyConverterProject
            
            
                 case "Brazil - $BRL": 
+            
                 rate = 5.82081;
-                double BRLdollar = finalValue1 * rate; 
+                EndAmount = finalValue1 * rate; 
 
-                String receipt = "--------------------------------------------------------------------------\n"
-                               + "            Currency Converter\n"
-                               + "--------------------------------------------------------------------------\n"
-                               + "Starting Amount: " + finalValue1 + "\n"
-                               + "Conversion Rate: $1 USD  =  $" + BRLdollar + " BRL \n"
-                               + "Converted Amount:  $" + BRLdollar + " BRL \n"
-                               + "--------------------------------------------------------------------------";
+                String receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " BRL          \n"
+                               + "Converted Amount:  $" + EndAmount + " BRL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
                
-                
+                               
                 JOptionPane.showMessageDialog(null, receipt );
 
+                break;
+
+                case "Argentina - $ARS": 
+                rate = 1072.82;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " ARS          \n"
+                               + "Converted Amount:  $" + EndAmount + " ARS             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
                
-                
-                
-                
-                
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                               
+                JOptionPane.showMessageDialog(null, receipt );
 
                 break;
+
+                case "Bolivia - $BOB": 
+                rate = 6.925;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " BOB          \n"
+                               + "Converted Amount:  $" + EndAmount + " BOB             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+
+
 /* 
-                case "Argentina - $ARS" -> $ARSConverter();
+                
                 case "Bolivia - $BOB" -> $BOBConverter();
                 case "$Chile - $CLP" -> $CLPConverter();
                 case "Colombia - $COP" -> $COPConverter();
@@ -304,25 +335,34 @@ public class CurrencyConverterProject
 
        
             
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+            
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     public static void $BRLConverter()
     {
