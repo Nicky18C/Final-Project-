@@ -522,6 +522,32 @@ public class CurrencyConverterProject
                 break;
 
 
+                case "Panama - $PAB": 
+                rate =  1;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " PAB          \n"
+                               + "Converted Amount:  $" + EndAmount + " PAB              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+
+                break;
+
+                
+
+
+
+
 
 
 
