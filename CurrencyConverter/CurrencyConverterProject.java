@@ -437,7 +437,35 @@ public class CurrencyConverterProject
 
                 break;
 
+                case "El Salvador - $SVC": 
+                rate =  8.75;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " UYU          \n"
+                               + "Converted Amount:  $" + EndAmount + " UYU              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
                 
+
+
+
+
+
+
+
 
 
 
