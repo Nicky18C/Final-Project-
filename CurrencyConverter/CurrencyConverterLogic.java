@@ -1,13 +1,82 @@
 import java.awt.*;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class CurrencyConverterLogic
+public class CurrencyConverterProject
 {
+    static double finalValue1;
+    static double rate;
 
+    public static final String[] InPocket = 
+    {
+        "United States - $USD",
+        "Brazil - $BRL",
+        "Argentina - $ARS",
+        "Bolivia - $BOB",
+        "Chile - $CLP",
+        "Colombia - $COP",
+        "Ecuador - $ECU",
+        "Guyana - $GYD",
+        "Paraguay - $PYG",
+        "Peru - $PEN",
+        "Suriname - $SRD",
+        "Uruguay - $UYU",
+        "El Salvador - $SVC",
+        "Guatemala - $GTQ",
+        "Honduras - $HNL",
+        "Nicaragua - $NIO",
+        "Panama - $PAB",
+        "Costa Rica - $CRC",
+        "Belize - $BZD",
+        "Canada - $CAD"
+    };
+
+
+
+    public static final String[] EndGoal = 
+    {
+        "United States - $USD",
+        "Brazil - $BRL",
+        "Argentina - $ARS",
+        "Bolivia - $BOB",
+        "Chile - $CLP",
+        "Colombia - $COP",
+        "Ecuador - $ECU",
+        "Guyana - $GYD",
+        "Paraguay - $PYG",
+        "Peru - $PEN",
+        "Suriname - $SRD",
+        "Uruguay - $UYU",
+        "El Salvador - $SVC",
+        "Guatemala - $GTQ",
+        "Honduras - $HNL",
+        "Nicaragua - $NIO",
+        "Panama - $PAB",
+        "Costa Rica - $CRC",
+        "Belize - $BZD",
+        "Canada - $CAD"
+    };
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static void main(String[] args)  
     {
@@ -20,30 +89,7 @@ public class CurrencyConverterLogic
             
             
 
-            String[] InPocket = 
-            {
-            "United States - $USD",
-            "Brazil - $BRL",
-            "Argentina - $ARS",
-            "Bolivia - $BOB",
-            "$Chile - $CLP",
-            "$Colombia - $COP",
-            "Ecuador - $ECU",
-            "Guyana - $GYD",
-            "Paraguay - $PYG",
-            "Peru - $PEN",
-            "Suriname - $SRD",
-            "$Uruguay - $UYU",
-            "El Salvador - $SVC",
-            "Guatemala - $GTQ",
-            "Honduras - $HNL",
-            "Nicaragua - $NIO",
-            "Panama - $PAB",
-            "Costa Rica - $CRC",
-            "Belize - $BZD",
-            "Canada - $CAD"
-            
-            };
+  
 
              String choose = (String) JOptionPane.showInputDialog
              (
@@ -169,10 +215,47 @@ public class CurrencyConverterLogic
 
         switch (choice) 
         {
-           case "United States - $USD"-> JOptionPane.showMessageDialog(null, "You already have that currency");
+
+                case "United States - $USD": JOptionPane.showMessageDialog(null, "You already have that currency");
            
            
-                case "Brazil - $BRL" -> $BRLConverter();
+                case "Brazil - $BRL": 
+                rate = 5.82081;
+                double BRLdollar = finalValue1 * rate; 
+
+                String receipt = "--------------------------------------------------------------------------\n"
+                               + "            Currency Converter\n"
+                               + "--------------------------------------------------------------------------\n"
+                               + "Starting Amount: " + finalValue1 + "\n"
+                               + "Conversion Rate: $1 USD  =  $" + BRLdollar + " BRL \n"
+                               + "Converted Amount:  $" + BRLdollar + " BRL \n"
+                               + "--------------------------------------------------------------------------";
+               
+                
+                JOptionPane.showMessageDialog(null, receipt );
+
+               
+                
+                
+                
+                
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                break;
+/* 
                 case "Argentina - $ARS" -> $ARSConverter();
                 case "Bolivia - $BOB" -> $BOBConverter();
                 case "$Chile - $CLP" -> $CLPConverter();
@@ -191,15 +274,55 @@ public class CurrencyConverterLogic
                 case "Costa Rica - $CRC" -> $BZConverter();
                 case "Belize - $BZD" -> $BZConverter();
                 case "Canada - $CAD" -> $BZConverter();
-           
-           default -> JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
+           */
+           default: JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
         }
 
 
 
 
 
-    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+            
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     public static void $BRLConverter()
     {
@@ -850,8 +973,8 @@ public class CurrencyConverterLogic
 
                 try 
                 {
-                    double finalValue = Double.parseDouble(input);
-                    JOptionPane.showMessageDialog(null, "Final Stored Value: " + finalValue);
+                    finalValue1 = Double.parseDouble(input);
+                    JOptionPane.showMessageDialog(null, "Final Stored Value: " + finalValue1);
                     dialog.dispose();
                 } 
                 
@@ -874,14 +997,7 @@ public class CurrencyConverterLogic
         dialog.setVisible(true);
     }
 
-   
-
-
-
-
-
-
-
+    
 
 
 
