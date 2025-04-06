@@ -284,6 +284,161 @@ public class CurrencyConverterProject
 
                 break;
 
+                case "Chile - $CLP": 
+                rate = 979.5058;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " CLP          \n"
+                               + "Converted Amount:  $" + EndAmount + " CLP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Colombia - $COP": 
+                rate = 4274.03;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " COP          \n"
+                               + "Converted Amount:  $" + EndAmount + " COP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Ecuador - $ECU": 
+                           
+                JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+
+                break;
+
+                case "Guyana - $GYD": 
+                rate = 210.18;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " GYD          \n"
+                               + "Converted Amount:  $" + EndAmount + " GYD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Paraguay - $PYG": 
+                rate = 8054.0361;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " PYG          \n"
+                               + "Converted Amount:  $" + EndAmount + " PYG              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Peru - $PEN": 
+                rate =  3.6785;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " PEN          \n"
+                               + "Converted Amount:  $" + EndAmount + " PEN              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Suriname - $SRD": 
+                rate =  36.51;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " SRD         \n"
+                               + "Converted Amount:  $" + EndAmount + " SRD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Uruguay - $UYU": 
+                rate =  42.13;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " UYU          \n"
+                               + "Converted Amount:  $" + EndAmount + " UYU              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                
+
 
 
 /* 
