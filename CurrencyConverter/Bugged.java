@@ -12,6 +12,7 @@ public class Bugged{
        // Implement JOptionPane Here
        // JOptionpane cannot work with scanner as it does it on its own check my code for details 
        // You can copy my code and run it in VS-code I have the basic structure down and all I need is to copy and paste and add the rates
+       // the conversion for USD to BRL, USD to BOB, USD to ARS all work I was fine tuning the details before I implemented them elswhere
        choice = keyboard.nextInt();
        switch (choice) {
        // I choose a switch case here to make it easy to expand upon into other currencies
