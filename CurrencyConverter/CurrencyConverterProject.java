@@ -458,7 +458,71 @@ public class CurrencyConverterProject
 
                 break;
 
-                
+                case "Guatemala - $GTQ": 
+                rate =  7.71611;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " GTQ          \n"
+                               + "Converted Amount:  $" + EndAmount + " GTQ              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Honduras - $HNL": 
+                rate =  24.82;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " HNL          \n"
+                               + "Converted Amount:  $" + EndAmount + " HNL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Nicaragua - $NIO": 
+                rate =  36.8;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " USD              \n"
+                               + "Conversion Rate: $1 USD  =  $" + rate + " NIO          \n"
+                               + "Converted Amount:  $" + EndAmount + " NIO              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+
+
 
 
 
@@ -471,15 +535,7 @@ public class CurrencyConverterProject
 
 /* 
                 
-                case "Bolivia - $BOB" -> $BOBConverter();
-                case "$Chile - $CLP" -> $CLPConverter();
-                case "Colombia - $COP" -> $COPConverter();
-                case "Ecuador - $ECU" -> $ECUConverter();
-                case "Guyana - $GYD" -> $GYDConverter();
-                case "Paraguay - $PYG" -> $UYUConverter();
-                case "Peru - $PEN" -> $BsConverter();
-                case "Suriname - $SRD" -> $GTQConverter();
-                case "$Uruguay - $UYU" -> $HNLConverter();
+              
                 case "El Salvador - $SVC" -> $NIOConverter();
                 case "Guatemala - $GTQ" -> ฿Converter();
                 case "Honduras - $HNL" -> ₡Converter();
