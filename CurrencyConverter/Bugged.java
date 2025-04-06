@@ -10,6 +10,8 @@ public class Bugged{
        System.out.println("Would you like to switch from $ to E or E to $");
        System.out.println("    1       2");
        // Implement JOptionPane Here
+       // JOptionpane cannot work with scanner as it does it on its own chech my code for details 
+       // You can copy my code and run it in VS-code I have the basic structure down and all I need is to copy and paste and add the rates
        choice = keyboard.nextInt();
        switch (choice) {
        // I choose a switch case here to make it easy to expand upon into other currencies
