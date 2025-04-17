@@ -723,7 +723,7 @@ public class CurrencyConverterProject
                                + "=======================================================\n"
                                + ""
                                + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 USD  =  $" + rate + " COP          \n"
+                               + "Conversion Rate: $1 BRL  =  $" + rate + " COP          \n"
                                + "Converted Amount:  $" + EndAmount + " COP              \n"
                                + ""
                                + "=======================================================\n"
@@ -1130,16 +1130,37 @@ public class CurrencyConverterProject
 
                 break;
 
-                case "Chile - $CLP": 
-                rate = 166.95;
+                case "Brazil - R$BRL": 
+                rate = 0.0061;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " CLP          \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " BRL          \n"
+                               + "Converted Amount:  $" + EndAmount + " BRL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Chile - $CLP": 
+                rate = 0.8512;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " CLP          \n"
                                + "Converted Amount:  $" + EndAmount + " CLP              \n"
                                + ""
                                + "=======================================================\n"
@@ -1159,8 +1180,8 @@ public class CurrencyConverterProject
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 USD  =  $" + rate + " COP          \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " COP          \n"
                                + "Converted Amount:  $" + EndAmount + " COP              \n"
                                + ""
                                + "=======================================================\n"
@@ -1174,16 +1195,16 @@ public class CurrencyConverterProject
 
                 case "Ecuador - $ECU": 
                 
-                rate = 0.20;
+                rate = 0.000879;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " USD          \n"
-                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " ECU          \n"
+                               + "Converted Amount:  $" + EndAmount + " ECU              \n"
                                + ""
                                + "=======================================================\n"
                                + "               Thanks for using our converter          \n"
@@ -1197,15 +1218,15 @@ public class CurrencyConverterProject
                 break;
 
                 case "Guyana - $GYD": 
-                rate = 35.57;
+                rate =  0.1945;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " GYD          \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " GYD          \n"
                                + "Converted Amount:  $" + EndAmount + " GYD              \n"
                                + ""
                                + "=======================================================\n"
@@ -1218,15 +1239,15 @@ public class CurrencyConverterProject
                 break;
 
                 case "Paraguay - $PYG": 
-                rate = 1362.28;
+                rate = 0.0009334;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " PYG          \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " PYG          \n"
                                + "Converted Amount:  $" + EndAmount + " PYG              \n"
                                + ""
                                + "=======================================================\n"
@@ -1239,15 +1260,15 @@ public class CurrencyConverterProject
                 break;
 
                 case "Peru - $PEN": 
-                rate =  0.634;
+                rate =  0.0033;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL              \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " PEN          \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS              \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " PEN          \n"
                                + "Converted Amount:  $" + EndAmount + " PEN              \n"
                                + ""
                                + "=======================================================\n"
@@ -1260,15 +1281,15 @@ public class CurrencyConverterProject
                 break;
 
                 case "Suriname - $SRD": 
-                rate =  6.21;
+                rate =  0.03400;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " BRL             \n"
-                               + "Conversion Rate: $1 BRL  =  $" + rate + " SRD         \n"
+                               + "Starting Amount: $" + finalValue1 + " ARS             \n"
+                               + "Conversion Rate: $1 ARS  =  $" + rate + " SRD         \n"
                                + "Converted Amount:  $" + EndAmount + " SRD              \n"
                                + ""
                                + "=======================================================\n"
