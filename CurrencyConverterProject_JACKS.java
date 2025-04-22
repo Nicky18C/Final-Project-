@@ -114,7 +114,7 @@ public class CurrencyConverterProject_JACKS
                 case "Guyana - GY$GYD" -> $GYDConverter();
                 case "Paraguay - ₲PYG" -> $PYGConverter();
                 case "Peru - S/.PEN" -> $PENConverter();
-                // case "Suriname - $SRD" -> $GTQConverter();
+                case "Suriname - $SRD" -> $SRDConverter();
                 ///case "$Uruguay - $UUYU" -> $HNLConverter();
                 case "El Salvador - $USD" -> $ELSConverter();
                 //case "Guatemala - QGTQ" -> ฿Converter();
@@ -4951,6 +4951,459 @@ public class CurrencyConverterProject_JACKS
       
     }
 
+    public static void $SRDConverter()
+    {
+        
+        CALCULATIONSDialog();
+
+        String[] EndGoal = 
+        {
+                "United States - $USD",
+                "Brazil - R$BRL",
+                "Argentina - $ARS",
+                "Bolivia - BsBOB",
+                "Chile - $CLP",
+                "Colombia - $COP",
+                "Ecuador - $USD",
+                "Guyana - GY$GYD",
+                "Paraguay - ₲PYG",
+                "Peru - S/.PEN",
+                "Suriname - $SRD",
+                "Uruguay - $UUYU",
+                "El Salvador - $USD",
+                "Guatemala - QGTQ",
+                "Honduras - LHNL",
+                "Nicaragua - C$NIO",
+                "Panama - B/.PAB",
+                "Costa Rica - ₡CRC",
+                "Belize - BZ$BZD",
+                "Canada - C$CAD"
+        };
+
+        String choice = (String) JOptionPane.showInputDialog
+        (
+            null, 
+            "Choose the target currency", 
+            "Currency converter", 
+            JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            EndGoal, 
+            EndGoal[0]
+        ); 
+
+        switch (choice) 
+        {
+
+                case "Suriname - $SRD": JOptionPane.showMessageDialog(null, "You already have that currency");
+           
+           
+                case "Brazil - R$BRL": 
+            
+                rate = .1558;
+                EndAmount = finalValue1 * rate; 
+
+                String receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  R$" + rate + " BRL          \n"
+                               + "Converted Amount:  R$" + EndAmount + " BRL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Argentina - $ARS": 
+                rate = 29.73;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " ARS          \n"
+                               + "Converted Amount:  $" + EndAmount + " ARS             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Bolivia - BsBOB": 
+                rate = .187;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  Bs" + rate + " BOB          \n"
+                               + "Converted Amount:  Bs" + EndAmount + " BOB             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Chile - $CLP": 
+                rate = 25.62;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " CLP          \n"
+                               + "Converted Amount:  $" + EndAmount + " CLP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Colombia - $COP": 
+                rate = 116.5;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " COP          \n"
+                               + "Converted Amount:  $" + EndAmount + " COP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Ecuador - $USD": 
+                           
+                rate = .02715;
+                EndAmount = finalValue1 * rate; 
+
+                receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " USD          \n"
+                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Guyana - GY$GYD": 
+                rate = 5.683;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  GY$" + rate + " GYD          \n"
+                               + "Converted Amount:  GY$" + EndAmount + " GYD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Paraguay - ₲PYG": 
+                rate = 217.3;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  ₲" + rate + " PYG          \n"
+                               + "Converted Amount:  ₲" + EndAmount + " PYG              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Peru - S/.PEN": 
+                rate =  .1004;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  S/." + rate + " PEN          \n"
+                               + "Converted Amount:  S/." + EndAmount + " PEN              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "United States - $USD": 
+            
+                rate = .02715;
+                EndAmount = finalValue1 * rate; 
+
+                receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " USD          \n"
+                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Uruguay - $UUYU": 
+                rate =  1.138;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $U" + rate + " UYU          \n"
+                               + "Converted Amount:  $U" + EndAmount + " UYU              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "El Salvador - $USD": 
+                
+                rate = .02715;
+                EndAmount = finalValue1 * rate; 
+
+                receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  $" + rate + " USD          \n"
+                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Guatemala - QGTQ": 
+                rate =  .2091;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  Q" + rate + " GTQ          \n"
+                               + "Converted Amount:  Q" + EndAmount + " GTQ              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Honduras - LHNL": 
+                rate =  .702;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  L" + rate + " HNL          \n"
+                               + "Converted Amount:  L" + EndAmount + " HNL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Nicaragua - C$NIO": 
+                rate =  1;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  C$" + rate + " NIO          \n"
+                               + "Converted Amount:  C$" + EndAmount + " NIO              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Panama - B/.PAB": 
+                rate =  .02715;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  B/." + rate + " PAB          \n"
+                               + "Converted Amount:  B/." + EndAmount + " PAB              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+
+                break;
+
+                case "Costa Rica - ₡CRC": 
+                rate =  13.65;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  ₡" + rate + " CRC          \n"
+                               + "Converted Amount:  ₡" + EndAmount + " CRC              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt);
+
+                break;
+
+                case "Belize - BZ$BZD": 
+                rate =  .0543;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  BZ$" + rate + " BZD          \n"
+                               + "Converted Amount:  BZ$" + EndAmount + " BZD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt);
+
+                break;
+
+                case "Canada - C$CAD": 
+                rate =  .03751;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $" + finalValue1 + " SRD              \n"
+                               + "Conversion Rate: $1 SRD  =  C$" + rate + " CAD          \n"
+                               + "Converted Amount:  C$" + EndAmount + " CAD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt);
+
+                break;
+
+           default: JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
+        }
+      
+    }
 
     public static void CALCULATIONSDialog() 
     {
