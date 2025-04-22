@@ -5447,29 +5447,29 @@ public class CurrencyConverterProject_JACKS
 
         okButton.addActionListener(e -> 
         {
-            String input = numberField.getText();
-            int response = JOptionPane.showConfirmDialog(dialog, "Confirm Amount:  $" + input, " Confirmation", JOptionPane.YES_NO_OPTION);
-            
+        String input = numberField.getText();
+        int response = JOptionPane.showConfirmDialog(dialog, "Confirm Amount:  $" + input, " Confirmation", JOptionPane.YES_NO_OPTION);
 
-            if (response == JOptionPane.YES_OPTION) 
-            {
-
-
+        if (response == JOptionPane.YES_OPTION) 
+        {
                 try 
                 {
-                    finalValue1 = Double.parseDouble(input);
-                    JOptionPane.showMessageDialog(null, "Final Stored Value  $" + finalValue1);
-                    dialog.dispose();
-                } 
+                finalValue1 = Double.parseDouble(input);
                 
-
-                catch (NumberFormatException ex) 
+                if (finalValue1 <= 0) 
                 {
-                    JOptionPane.showMessageDialog(dialog, "Invalid number format!", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(dialog, "Negative numbers are not allowed!", "Error", JOptionPane.ERROR_MESSAGE);
+                        return;
                 }
 
-
-            }
+                JOptionPane.showMessageDialog(null, "Final Stored Value  $" + finalValue1);
+                dialog.dispose();
+                } 
+                catch (NumberFormatException ex) 
+                {
+                JOptionPane.showMessageDialog(dialog, "Invalid number format!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+        }
         });
 
         dialog.add(minusButton);
