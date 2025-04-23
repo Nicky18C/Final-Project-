@@ -5888,7 +5888,7 @@ public static void $PABConverter()
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: B/.PAB" + finalValue1 + " PAB             \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
                                + "Conversion Rate: B/. 1 PAB  =  $" + rate + " USD          \n"
                                + "Converted Amount:  $" + EndAmount + " USD              \n"
                                + ""
@@ -5910,7 +5910,7 @@ public static void $PABConverter()
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: B/.PAB" + finalValue1 + " PAB             \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
                                + "Conversion Rate: B/.1 PAB  =  R$" + rate + " BRL          \n"
                                + "Converted Amount:  R$" + EndAmount + " BRL              \n"
                                + ""
@@ -5924,15 +5924,15 @@ public static void $PABConverter()
                 break;
 
                 case "Argentina - $ARS": 
-                rate = 29.93;
+                rate = 1103;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  $" + rate + " ARS          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  $" + rate + " ARS          \n"
                                + "Converted Amount:  $" + EndAmount + " ARS             \n"
                                + ""
                                + "=======================================================\n"
@@ -5945,15 +5945,15 @@ public static void $PABConverter()
                 break;
 
                 case "Bolivia - BsBOB": 
-                rate = .1870;
+                rate = 6.91;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  Bs" + rate + " BOB          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  Bs" + rate + " BOB          \n"
                                + "Converted Amount:  Bs" + EndAmount + " BOB             \n"
                                + ""
                                + "=======================================================\n"
@@ -5966,15 +5966,15 @@ public static void $PABConverter()
                 break;
 
                 case "Chile - $CLP": 
-                rate = 25.61;
+                rate = 943.0;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  $" + rate + " CLP          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  $" + rate + " CLP          \n"
                                + "Converted Amount:  $" + EndAmount + " CLP              \n"
                                + ""
                                + "=======================================================\n"
@@ -5988,15 +5988,15 @@ public static void $PABConverter()
 
                 case "Ecuador - $USD": 
                            
-                rate = .02714;
+                rate = 1;
                 EndAmount = finalValue1 * rate; 
 
                         receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  $" + rate + " USD         \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  $" + rate + " USD         \n"
                                + "Converted Amount:  $" + EndAmount + " USD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6009,15 +6009,15 @@ public static void $PABConverter()
                 break;
 
                 case "Guyana - GY$GYD": 
-                rate = 5.682;
+                rate = 209.4;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  GY$" + rate + " GYD          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  GY$" + rate + " GYD          \n"
                                + "Converted Amount:  GY$" + EndAmount + " GYD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6030,15 +6030,15 @@ public static void $PABConverter()
                 break;
 
                 case "Paraguay - ₲PYG": 
-                rate = 217.3;
+                rate = 8005;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  ₲" + rate + " PYG          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  ₲" + rate + " PYG          \n"
                                + "Converted Amount:  ₲" + EndAmount + " PYG              \n"
                                + ""
                                + "=======================================================\n"
@@ -6051,15 +6051,15 @@ public static void $PABConverter()
                 break;
 
                 case "Suriname - $SRD": 
-                rate =  .9998;
+                rate =  36.81;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  $" + rate + " SRD         \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  $" + rate + " SRD         \n"
                                + "Converted Amount:  $" + EndAmount + " SRD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6072,15 +6072,15 @@ public static void $PABConverter()
                 break;
 
                 case "Uruguay - $UUYU": 
-                rate =  1.139;
+                rate =  42.47;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO =  $U" + rate + " UYU          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB =  $U" + rate + " UYU          \n"
                                + "Converted Amount:  $U" + EndAmount + " UYU              \n"
                                + ""
                                + "=======================================================\n"
@@ -6094,15 +6094,15 @@ public static void $PABConverter()
 
                 case "El Salvador - $USD": 
                 
-                rate = .02714;
+                rate = 1;
                 EndAmount = finalValue1 * rate; 
 
                         receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  $" + rate + " USD         \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  $" + rate + " USD         \n"
                                + "Converted Amount:  $" + EndAmount + " USD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6115,15 +6115,15 @@ public static void $PABConverter()
                 break;
 
                 case "Guatemala - QGTQ": 
-                rate =  .2090;
+                rate =  7.703;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  Q" + rate + " GTQ          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  Q" + rate + " GTQ          \n"
                                + "Converted Amount:  Q" + EndAmount + " GTQ              \n"
                                + ""
                                + "=======================================================\n"
@@ -6136,15 +6136,15 @@ public static void $PABConverter()
                 break;
 
                 case "Honduras - LHNL": 
-                rate =  .7019;
+                rate =  25.91;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  L" + rate + " HNL          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB =  L" + rate + " HNL          \n"
                                + "Converted Amount:  L" + EndAmount + " HNL              \n"
                                + ""
                                + "=======================================================\n"
@@ -6157,15 +6157,15 @@ public static void $PABConverter()
                 break;
 
                 case "Nicaragua - C$NIO": 
-                rate =  36.8;
+                rate =  36.88;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: $" + finalValue1 + " USD              \n"
-                               + "Conversion Rate: $1 USD  =  C$" + rate + " NIO          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB              \n"
+                               + "Conversion Rate: B/.1 PAB =  C$" + rate + " NIO          \n"
                                + "Converted Amount:  C$" + EndAmount + " NIO              \n"
                                + ""
                                + "=======================================================\n"
@@ -6178,15 +6178,15 @@ public static void $PABConverter()
                 break;
 
                 case "Costa Rica - ₡CRC": 
-                rate =  13.67;
+                rate =  503.2;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  ₡" + rate + " CRC          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  ₡" + rate + " CRC          \n"
                                + "Converted Amount:  ₡" + EndAmount + " CRC              \n"
                                + ""
                                + "=======================================================\n"
@@ -6199,15 +6199,15 @@ public static void $PABConverter()
                 break;
 
                 case "Belize - BZ$BZD": 
-                rate =  .05429;
+                rate =  2;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  BZ$" + rate + " BZD          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  BZ$" + rate + " BZD          \n"
                                + "Converted Amount:  BZ$" + EndAmount + " BZD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6220,15 +6220,15 @@ public static void $PABConverter()
                 break;
 
                 case "Canada - C$CAD": 
-                rate =  .03749;
+                rate =  1.38;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO  =  C$" + rate + " CAD          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB  =  C$" + rate + " CAD          \n"
                                + "Converted Amount:  C$" + EndAmount + " CAD              \n"
                                + ""
                                + "=======================================================\n"
@@ -6241,15 +6241,15 @@ public static void $PABConverter()
                 break;
 
                 case "Colombia - $COP": 
-                rate = 116.6;
+                rate = 4294;
                 EndAmount = finalValue1 * rate; 
 
                        receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
-                               + "Starting Amount: C$NIO" + finalValue1 + " NIO             \n"
-                               + "Conversion Rate: C$1 NIO =  $" + rate + " COP          \n"
+                               + "Starting Amount: B/." + finalValue1 + " PAB             \n"
+                               + "Conversion Rate: B/.1 PAB =  $" + rate + " COP          \n"
                                + "Converted Amount:  $" + EndAmount + " COP              \n"
                                + ""
                                + "=======================================================\n"
