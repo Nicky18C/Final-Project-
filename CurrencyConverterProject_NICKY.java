@@ -115,15 +115,16 @@ public class CurrencyConverterProject_JACKS
                 case "Paraguay - ₲PYG" -> $PYGConverter();
                 case "Peru - S/.PEN" -> $PENConverter();
                 case "Suriname - $SRD" -> $SRDConverter();
-                ///case "$Uruguay - $UUYU" -> $HNLConverter();
+                case "$Uruguay - $UUYU" -> $UYUConverter();
                 case "El Salvador - $USD" -> $ELSConverter();
-                //case "Guatemala - QGTQ" -> ฿Converter();
+                case "Guatemala - QGTQ" -> $GTQConverter();
                 //case "Honduras - LHNL" -> ₡Converter();
                 case "Nicaragua - C$NIO" -> $NIOConverter();
                 case "Panama - B/.PAB" -> $PABConverter();
                 case "Costa Rica - ₡CRC" -> $CRCConverter();
                 case "Belize - BZ$BZD" -> $BZConverter();
                 case "Canada - C$CAD" -> $CADConverter();
+
                 
 
 
@@ -7629,6 +7630,462 @@ public static void $BZConverter()
         }
       
     }
+    public static void $UYUConverter()
+    {
+        
+        CALCULATIONSDialog();
+
+        String[] EndGoal = 
+        {
+                "United States - $USD",
+                "Brazil - R$BRL",
+                "Argentina - $ARS",
+                "Bolivia - BsBOB",
+                "Chile - $CLP",
+                "Colombia - $COP",
+                "Ecuador - $USD",
+                "Guyana - GY$GYD",
+                "Paraguay - ₲PYG",
+                "Peru - S/.PEN",
+                "Suriname - $SRD",
+                "Uruguay - $UUYU",
+                "El Salvador - $USD",
+                "Guatemala - QGTQ",
+                "Honduras - LHNL",
+                "Nicaragua - C$NIO",
+                "Panama - B/.PAB",
+                "Costa Rica - ₡CRC",
+                "Belize - BZ$BZD",
+                "Canada - C$CAD"
+        };
+
+        String choice = (String) JOptionPane.showInputDialog
+        (
+            null, 
+            "Choose the target currency", 
+            "Currency converter", 
+            JOptionPane.QUESTION_MESSAGE, 
+            null, 
+            EndGoal, 
+            EndGoal[0]
+        ); 
+
+        switch (choice) 
+        {
+
+                case "Uruguay - $UUYU": JOptionPane.showMessageDialog(null, "You already have that currency");
+
+                case "United States - $USD": 
+                
+                rate = .02387;
+                EndAmount = finalValue1 * rate; 
+
+                String receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " USD          \n"
+                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+           
+           
+                case "Brazil - R$BRL": 
+            
+                rate = .1355;
+                EndAmount = finalValue1 * rate; 
+
+                 receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU             \n"
+                               + "Conversion Rate: $U1 UYU  =  R$" + rate + " BRL          \n"
+                               + "Converted Amount:  R$" + EndAmount + " BRL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Argentina - $ARS": 
+                rate = 27.91;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " ARS          \n"
+                               + "Converted Amount:  $" + EndAmount + " ARS             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Bolivia - BsBOB": 
+                rate = 0.1644;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  Bs" + rate + " BOB          \n"
+                               + "Converted Amount:  Bs" + EndAmount + " BOB             \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Chile - $CLP": 
+                rate = 22.35;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " CLP          \n"
+                               + "Converted Amount:  $" + EndAmount + " CLP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Colombia - $COP": 
+                rate = 101.6;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " COP          \n"
+                               + "Converted Amount:  $" + EndAmount + " COP              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Ecuador - $USD":
+                rate = .02387;
+               EndAmount = finalValue1 * rate;
+
+
+                       receipt = "=======================================================\n"
+                              + "                  Successful Transaction               \n"
+                              + "=======================================================\n"
+                              + ""
+                              + "Starting Amount: $U" + finalValue1 + " UYU             \n"
+                              + "Conversion Rate: $U1 UYU  =  $" + rate + " USD         \n"
+                              + "Converted Amount:  $" + EndAmount + " USD              \n"
+                              + ""
+                              + "=======================================================\n"
+                              + "               Thanks for using our converter          \n"
+                              + "=======================================================\n";
+             
+                             
+               JOptionPane.showMessageDialog(null, receipt );
+
+
+               break;
+
+                case "Guyana - GY$GYD": 
+                rate = 4.998;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  GY$" + rate + " GYD          \n"
+                               + "Converted Amount:  GY$" + EndAmount + " GYD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Paraguay - ₲PYG": 
+                rate = 190.9;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  ₲" + rate + " PYG          \n"
+                               + "Converted Amount:  ₲" + EndAmount + " PYG              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Peru - S/.PEN": 
+                rate =  .08767;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU =  S/." + rate + " PEN          \n"
+                               + "Converted Amount:  S/." + EndAmount + " PEN              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Suriname - $SRD": 
+                rate =  .8785;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " SRD         \n"
+                               + "Converted Amount:  $" + EndAmount + " SRD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Canada - C$CAD": 
+                rate =  .03312;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  C$" + rate + " CAD          \n"
+                               + "Converted Amount:  C$" + EndAmount + " CAD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt);
+
+                break;
+
+
+                case "Guatemala - QGTQ": 
+                rate =  .1838;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  Q" + rate + " GTQ          \n"
+                               + "Converted Amount:  Q" + EndAmount + " GTQ              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Honduras - LHNL": 
+                rate =  .6168;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  L" + rate + " HNL          \n"
+                               + "Converted Amount:  L" + EndAmount + " HNL              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Nicaragua - C$NIO": 
+                rate =  .8792;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  C$" + rate + " NIO          \n"
+                               + "Converted Amount:  C$" + EndAmount + " NIO              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Panama - B/.PAB": 
+                rate =  .02387;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  B/." + rate + " PAB          \n"
+                               + "Converted Amount:  B/." + EndAmount + " PAB              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+
+                break;
+
+                case "Costa Rica - ₡CRC": 
+                rate =  12.05;
+                EndAmount = finalValue1 * rate; 
+
+                       receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  ₡" + rate + " CRC          \n"
+                               + "Converted Amount:  ₡" + EndAmount + " CRC              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt);
+
+                break;
+
+                case "El Salvador - $USD": 
+                
+                rate = .02387;
+                EndAmount = finalValue1 * rate; 
+
+                        receipt = "=======================================================\n"
+                               + "                  Successful Transaction               \n"
+                               + "=======================================================\n"
+                               + ""
+                               + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                               + "Conversion Rate: $U1 UYU  =  $" + rate + " USD          \n"
+                               + "Converted Amount:  $" + EndAmount + " USD              \n"
+                               + ""
+                               + "=======================================================\n"
+                               + "               Thanks for using our converter          \n"
+                               + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+
+                break;
+
+                case "Belize - BZ$BZD": 
+            rate =  .04773;
+            EndAmount = finalValue1 * rate; 
+
+                   receipt = "=======================================================\n"
+                           + "                  Successful Transaction               \n"
+                           + "=======================================================\n"
+                           + ""
+                           + "Starting Amount: $U" + finalValue1 + " UYU              \n"
+                           + "Conversion Rate: $U1 UYU  =  BZ$" + rate + " BZD          \n"
+                           + "Converted Amount:  BZ$" + EndAmount + " BZD              \n"
+                           + ""
+                           + "=======================================================\n"
+                           + "               Thanks for using our converter          \n"
+                           + "=======================================================\n";
+           
+                           
+            JOptionPane.showMessageDialog(null, receipt);
+
+            break;
+
+           default: JOptionPane.showMessageDialog(null, "Error: Unknown currency selected.");
+        }
+      
+    }
+    
 
 
 
