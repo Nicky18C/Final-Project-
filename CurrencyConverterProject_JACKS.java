@@ -1,7 +1,10 @@
 import java.awt.*;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
 public class CurrencyConverterProject_JACKS
@@ -9,6 +12,7 @@ public class CurrencyConverterProject_JACKS
     static double finalValue1;
     static double rate;
     static double EndAmount;
+    static int languageValue;
 
 
     public static final String[] InPocket = 
@@ -81,9 +85,7 @@ public class CurrencyConverterProject_JACKS
 
     public static void main(String[] args)  
     {
-        
-
-
+        languageValue = LanguageSelector();
         while (true)
         {
             
@@ -91,7 +93,7 @@ public class CurrencyConverterProject_JACKS
             
 
   
-
+        if (languageValue == 1){
              String choose = (String) JOptionPane.showInputDialog
              (
                  null, 
@@ -126,8 +128,7 @@ public class CurrencyConverterProject_JACKS
                 case "Panama - B/.PAB" -> $PABConverter();
                 case "Costa Rica - ₡CRC" -> $CRCConverter();
                 case "Belize - BZ$BZD" -> $BZConverter();
-                case "Canada - C$CAD" -> $CADConverter();
-                
+                case "Canada - C$CAD" -> $CADConverter();    
 
 
 
@@ -163,7 +164,81 @@ public class CurrencyConverterProject_JACKS
                     JOptionPane.showMessageDialog(null, "Invalid choice. Exiting...");
                     System.exit(0);
             }
+         }
+         else {
+                String choose = (String) JOptionPane.showInputDialog
+                (
+                    null, 
+                    "¿Qué tipo de moneda tienes?", 
+                    "Convertidor de divisas", 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, 
+                    InPocket, 
+                    InPocket
+                    [0]
+                ); 
+   
+                switch (choose) 
+                {
+                   case "United States - $USD" -> $USDConverter();
+                   case "Brazil - R$BRL" -> $BRLConverter();
+                   case "Argentina - $ARS" -> $ARSConverter();
+                   case "Bolivia - BsBOB" -> $BOBConverter();
+                   case "$Chile - $CLP" -> $CLPConverter();
+                   case "Colombia - $COP" -> $COPConverter();
+                   case "Ecuador - $USD" -> $ECUConverter();
+                   case "Guyana - GY$GYD" -> $GYDConverter();
+                   case "Paraguay - ₲PYG" -> $PYGConverter();
+                   case "Peru - S/.PEN" -> $PENConverter();
+                   case "Suriname - $SRD" -> $SRDConverter();
+                   case "Uruguay - $UUYU" -> $UYUConverter();
+                   case "El Salvador - $USD" -> $ELSConverter();
+                   case "Venezuela - Bs.VES" -> $VESConverter();
+                   case "Guatemala - QGTQ" -> $GTQConverter();
+                   case "Honduras - LHNL" -> $HNLConverter();
+                   case "Nicaragua - C$NIO" -> $NIOConverter();
+                   case "Panama - B/.PAB" -> $PABConverter();
+                   case "Costa Rica - ₡CRC" -> $CRCConverter();
+                   case "Belize - BZ$BZD" -> $BZConverter();
+                   case "Canada - C$CAD" -> $CADConverter();    
+   
+   
+   
+                   //case "$C" -> $CConverter();
+                   
+                   default -> JOptionPane.showMessageDialog(null, "Error: Se ha seleccionado una moneda desconocida.");
+                }
+   
+   
+   
+   
+               String[] options = 
+               {
+               "Convertir de nuevo",
+               "Salir"
+               };
+   
+               int choice = JOptionPane.showOptionDialog(null, "¿Te gustaría convertir más moneda?",
+                       
+               "Repeat Option", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+   
+   
+               switch (choice) 
+               {
+                   case 0:    continue;
+   
+                   case 1: 
+                       JOptionPane.showMessageDialog(null, "¡Adiós!");
+                       System.exit(0);
+                       break;
+   
+                   default:
+                       JOptionPane.showMessageDialog(null, "Elección no válida. Salir...");
+                       System.exit(0);
+               }   
+         }
         }
+
         
     }
 
@@ -197,7 +272,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -206,7 +283,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -221,7 +311,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+                        String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -235,6 +326,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+                }
+                else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -245,7 +353,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -259,6 +368,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  R$" + formattedRate + " BRL          \n"
+                        + "Cantidad Convertida:  R$" + formattedAmount + " BRL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -268,7 +394,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -282,6 +409,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  $" + formattedRate + " ARS          \n"
+                        + "Cantidad Convertida:  $" + formattedAmount + " ARS             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -291,7 +435,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -305,6 +450,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs" + formattedRate + " BOB          \n"
+                        + "Cantidad Convertida:  Bs" + formattedAmount + " BOB             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -314,7 +476,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -328,6 +491,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  $" + formattedRate + " CLP          \n"
+                        + "Cantidad Convertida:  $" + formattedAmount + " CLP             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -337,7 +517,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -351,12 +532,34 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  $" + formattedRate + " COP          \n"
+                        + "Cantidad Convertida:  $" + formattedAmount + " COP             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
                 case "Ecuador - $USD": 
                            
+                 if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
@@ -366,7 +569,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -380,6 +584,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  GY$" + formattedRate + " GYD          \n"
+                        + "Cantidad Convertida:  GY$" + formattedAmount + " GYD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -389,7 +610,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -403,6 +625,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₲" + formattedRate + " PYG          \n"
+                        + "Cantidad Convertida:  ₲" + formattedAmount + " PYG             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -412,7 +651,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -426,6 +666,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  S/." + formattedRate + " PEN          \n"
+                        + "Cantidad Convertida:  S/." + formattedAmount + " PEN             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -435,7 +692,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -449,6 +707,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  $" + formattedRate + " SRD          \n"
+                        + "Cantidad Convertida:  $" + formattedAmount + " SRD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -458,7 +733,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -472,12 +748,34 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  $U" + formattedRate + " UYU          \n"
+                        + "Cantidad Convertida:  $U" + formattedAmount + " UYU             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
                 case "El Salvador - $USD": 
                 
+                if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
@@ -487,7 +785,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -501,6 +800,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Q" + formattedRate + " GTQ          \n"
+                        + "Cantidad Convertida:  Q" + formattedAmount + " GTQ             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -510,7 +826,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -524,6 +841,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -533,7 +867,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -547,6 +882,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -556,7 +908,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+                        String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -568,8 +921,24 @@ public class CurrencyConverterProject_JACKS
                                + "               Thanks for using our converter          \n"
                                + "=======================================================\n";
                
+                        JOptionPane.showMessageDialog(null, receipt );               
+                }
+                else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  B/." + formattedRate + " PAB          \n"
+                        + "Cantidad Convertida:  B/." + formattedAmount + " PAB             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -579,7 +948,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -593,6 +963,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -602,7 +989,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -616,6 +1004,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -625,7 +1030,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+                                String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -639,6 +1045,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -677,7 +1100,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -686,7 +1111,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        }
 
         switch (choice) 
         {
@@ -698,7 +1136,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -712,6 +1151,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -722,7 +1178,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -736,6 +1193,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -745,7 +1219,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -759,6 +1234,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -768,7 +1260,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -782,6 +1275,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -791,7 +1301,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -805,6 +1316,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -814,7 +1342,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -828,6 +1357,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -838,7 +1384,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -851,6 +1398,23 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
 
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -860,7 +1424,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -874,6 +1439,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -883,7 +1465,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -897,6 +1480,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -906,7 +1506,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -920,6 +1521,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -929,7 +1547,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -943,6 +1562,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -952,7 +1588,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -966,6 +1603,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -975,7 +1629,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -989,6 +1644,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -998,7 +1670,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1012,6 +1685,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1021,7 +1711,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1035,6 +1726,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1044,7 +1752,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1058,6 +1767,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1067,7 +1793,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1081,6 +1808,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1090,7 +1834,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1104,6 +1849,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1113,7 +1875,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1127,6 +1890,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1136,7 +1916,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1150,6 +1931,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1187,7 +1985,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -1196,7 +1996,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -1211,7 +2024,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1225,6 +2039,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1234,7 +2065,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1248,6 +2080,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1258,7 +2107,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1272,6 +2122,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1281,7 +2148,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1295,6 +2163,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1304,7 +2189,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1318,6 +2204,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1327,7 +2230,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1341,6 +2245,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1350,7 +2271,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1364,6 +2286,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1373,7 +2312,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1387,6 +2327,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1396,7 +2353,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1410,6 +2368,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1419,7 +2394,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1433,6 +2409,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1442,7 +2435,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1456,6 +2450,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1465,7 +2476,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1479,6 +2491,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1488,7 +2517,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1502,6 +2532,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1511,7 +2558,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1525,6 +2573,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1534,7 +2599,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1548,6 +2614,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1557,7 +2640,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1571,6 +2655,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1580,7 +2681,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1593,7 +2695,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1603,7 +2722,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1617,6 +2737,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1626,7 +2763,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1640,6 +2778,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1649,7 +2804,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1663,6 +2819,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1701,7 +2874,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -1710,7 +2885,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -1722,7 +2910,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1736,6 +2925,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -1746,7 +2952,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1760,6 +2967,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1770,7 +2994,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1784,6 +3009,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1799,7 +3041,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1813,6 +3056,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1822,7 +3082,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1836,6 +3097,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1845,7 +3123,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1859,6 +3138,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1869,7 +3165,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1882,7 +3179,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "The official currency for Ecuador is the US dollar" );   
+                               JOptionPane.showMessageDialog(null, receipt );
+                        }
+                        else {
+                        String receipt = "=======================================================\n"
+                                                       + "                  Successful Transaction               \n"
+                                                       + "=======================================================\n"
+                                                       + ""
+                                                       + "Starting Amount: $" + finalValue1 + " USD              \n"
+                                                       + "Conversion Rate: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                                                       + "Converted Amount:  Bs." + formattedAmount + " VES             \n"
+                                                       + ""
+                                                       + "=======================================================\n"
+                                                       + "               Thanks for using our converter          \n"
+                                                       + "=======================================================\n";
+                                       
+                                                       
+                                        JOptionPane.showMessageDialog(null, receipt );
+                        }   
                   
                 
 
@@ -1894,7 +3208,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1908,6 +3223,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1917,7 +3249,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1931,6 +3264,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1940,7 +3290,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1954,6 +3305,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1963,7 +3331,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -1977,6 +3346,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -1986,7 +3372,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2000,6 +3387,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2009,7 +3413,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2023,6 +3428,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2032,7 +3454,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2046,6 +3469,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2055,7 +3495,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2069,6 +3510,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2078,7 +3536,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2092,6 +3551,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2101,7 +3577,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2113,6 +3590,25 @@ public class CurrencyConverterProject_JACKS
                                + "               Thanks for using our converter          \n"
                                + "=======================================================\n";
 
+                JOptionPane.showMessageDialog(null, receipt);
+        }
+        else {
+        String receipt = "=======================================================\n"
+                                       + "                  Successful Transaction               \n"
+                                       + "=======================================================\n"
+                                       + ""
+                                       + "Starting Amount: $" + finalValue1 + " USD              \n"
+                                       + "Conversion Rate: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                                       + "Converted Amount:  Bs." + formattedAmount + " VES             \n"
+                                       + ""
+                                       + "=======================================================\n"
+                                       + "               Thanks for using our converter          \n"
+                                       + "=======================================================\n";
+                       
+                                       
+                        JOptionPane.showMessageDialog(null, receipt );
+        }
+
                 break;
 
                 case "Costa Rica - ₡CRC": 
@@ -2121,7 +3617,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2135,6 +3632,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2144,7 +3658,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2158,6 +3673,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2167,7 +3699,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2181,6 +3714,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2219,7 +3769,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -2228,7 +3780,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -2240,7 +3805,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2254,6 +3820,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2264,7 +3847,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2278,6 +3862,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -2288,7 +3889,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2302,6 +3904,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2311,7 +3930,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2325,6 +3945,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2334,7 +3971,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2348,6 +3986,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2363,7 +4018,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2377,6 +4033,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2387,7 +4060,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2397,7 +4071,26 @@ public class CurrencyConverterProject_JACKS
                                + ""
                                + "=======================================================\n"
                                + "               Thanks for using our converter          \n"
-                               + "=======================================================\n";        
+                               + "=======================================================\n";
+                
+                JOptionPane.showMessageDialog(null, receipt );
+        }
+        else {
+        String receipt = "=======================================================\n"
+                                       + "                  Successful Transaction               \n"
+                                       + "=======================================================\n"
+                                       + ""
+                                       + "Starting Amount: $" + finalValue1 + " USD              \n"
+                                       + "Conversion Rate: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                                       + "Converted Amount:  Bs." + formattedAmount + " VES             \n"
+                                       + ""
+                                       + "=======================================================\n"
+                                       + "               Thanks for using our converter          \n"
+                                       + "=======================================================\n";
+                       
+                                       
+                        JOptionPane.showMessageDialog(null, receipt );
+        }
 
                 break;
 
@@ -2407,7 +4100,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2421,6 +4115,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2430,7 +4141,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2444,6 +4156,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2453,7 +4182,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2467,6 +4197,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2476,7 +4223,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2490,6 +4238,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2499,7 +4264,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2513,6 +4279,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2522,7 +4305,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2536,6 +4320,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2545,7 +4346,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2559,6 +4361,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2568,7 +4387,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2582,6 +4402,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2591,7 +4428,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2605,6 +4443,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2614,7 +4469,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2627,7 +4483,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2637,7 +4510,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2651,6 +4525,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2660,7 +4551,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2674,6 +4566,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2683,7 +4592,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2697,6 +4607,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2735,7 +4662,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -2744,7 +4673,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -2758,7 +4700,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2772,6 +4715,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2782,7 +4742,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2796,6 +4757,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -2806,7 +4784,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2820,6 +4799,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2829,7 +4825,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2843,6 +4840,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2852,7 +4866,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2866,6 +4881,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2875,7 +4907,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2889,6 +4922,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2899,7 +4949,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2913,6 +4964,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2922,7 +4990,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2936,6 +5005,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2945,7 +5031,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2959,6 +5046,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2968,7 +5072,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -2982,6 +5087,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -2991,7 +5113,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3005,6 +5128,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3014,7 +5154,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3028,6 +5169,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3038,7 +5196,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3052,6 +5211,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
                 case "Guatemala - QGTQ": 
@@ -3060,7 +5236,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3074,6 +5251,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3083,7 +5277,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3097,6 +5292,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3106,7 +5318,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3120,6 +5333,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3129,7 +5359,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3143,6 +5374,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3152,7 +5400,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3166,6 +5415,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3175,7 +5441,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3189,6 +5456,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3198,7 +5482,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3212,6 +5497,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3250,7 +5552,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -3259,7 +5563,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -3274,7 +5591,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3288,6 +5606,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3298,7 +5633,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3312,6 +5648,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3321,7 +5674,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3335,6 +5689,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3344,7 +5715,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3358,6 +5730,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3367,7 +5756,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3381,6 +5771,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3390,7 +5797,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3404,6 +5812,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3413,7 +5838,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3427,6 +5853,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3436,7 +5879,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3450,6 +5894,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3459,7 +5920,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3473,6 +5935,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3482,7 +5961,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3496,6 +5976,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3505,7 +6002,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3519,18 +6017,45 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
                 case "El Salvador - $USD": 
                 
+                 if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
                 case "United States - $USD": 
                 
+                 if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
@@ -3540,7 +6065,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3554,6 +6080,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3563,7 +6106,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3577,6 +6121,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3586,7 +6147,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3600,6 +6162,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3609,7 +6188,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3622,7 +6202,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3632,7 +6229,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3646,6 +6244,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3655,7 +6270,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3669,6 +6285,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3678,7 +6311,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3692,6 +6326,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3730,7 +6381,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -3739,7 +6392,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -3754,7 +6420,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3768,6 +6435,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3778,7 +6462,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3792,6 +6477,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3801,7 +6503,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3815,6 +6518,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3824,7 +6544,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3838,6 +6559,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3847,7 +6585,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3861,6 +6600,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3870,7 +6626,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3884,6 +6641,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3893,7 +6667,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3907,6 +6682,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3916,7 +6708,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3930,6 +6723,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3939,7 +6749,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3953,6 +6764,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3962,7 +6790,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3976,6 +6805,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -3985,7 +6831,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -3999,18 +6846,45 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
                 case "Ecuador - $USD": 
                 
+                 if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
                 case "United States - $USD": 
                 
+                 if (languageValue == 1){
                 JOptionPane.showMessageDialog  (null, "This country uses your current currency" );
+                }
+                else {
+                JOptionPane.showMessageDialog  (null, "Este país utiliza su moneda actual" );
+                }
 
                 break;
 
@@ -4020,7 +6894,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4034,6 +6909,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4043,7 +6935,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4057,6 +6950,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4066,7 +6976,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4080,6 +6991,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4089,7 +7017,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4102,7 +7031,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4112,7 +7058,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4126,6 +7073,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4135,7 +7099,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4149,6 +7114,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4158,7 +7140,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4172,6 +7155,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4210,7 +7210,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -4219,7 +7221,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -4233,7 +7248,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4247,6 +7263,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4257,7 +7290,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4271,6 +7305,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -4281,7 +7332,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4295,6 +7347,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4304,7 +7373,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4318,6 +7388,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4327,7 +7414,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4341,6 +7429,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4350,7 +7455,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4364,6 +7470,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4374,7 +7497,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4388,6 +7512,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4397,7 +7538,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4411,6 +7553,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4420,7 +7579,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4434,6 +7594,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4443,7 +7620,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4457,6 +7635,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4466,7 +7661,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4480,6 +7676,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4490,7 +7703,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4504,6 +7718,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4513,7 +7744,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4527,6 +7759,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4536,7 +7785,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4550,6 +7800,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4559,7 +7826,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4573,6 +7841,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4582,7 +7867,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4596,6 +7882,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4605,7 +7908,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4619,6 +7923,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4628,7 +7949,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4642,6 +7964,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4651,7 +7990,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4665,6 +8005,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4674,7 +8031,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4688,6 +8046,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4726,7 +8101,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -4735,7 +8112,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -4749,7 +8139,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4763,6 +8154,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4773,7 +8181,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4787,6 +8196,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -4797,7 +8223,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4811,6 +8238,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4820,7 +8264,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4834,6 +8279,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4843,7 +8305,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4857,6 +8320,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4866,7 +8346,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4880,6 +8361,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4890,7 +8388,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4904,6 +8403,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4913,7 +8429,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4927,6 +8444,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
                 case "Peru - S/.PEN": 
@@ -4935,7 +8469,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4949,6 +8484,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4958,7 +8510,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4972,6 +8525,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -4981,7 +8551,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -4995,6 +8566,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5005,7 +8593,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5019,6 +8608,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5028,7 +8634,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5042,6 +8649,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5051,7 +8675,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5065,6 +8690,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5074,7 +8716,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5088,6 +8731,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5097,7 +8757,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5111,6 +8772,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5120,7 +8798,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5134,6 +8813,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5143,7 +8839,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5157,6 +8854,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5166,7 +8880,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5180,6 +8895,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5189,7 +8921,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5203,6 +8936,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5241,7 +8991,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -5250,7 +9002,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -5264,7 +9029,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5278,6 +9044,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -5288,7 +9071,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5302,6 +9086,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5312,7 +9113,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5326,6 +9128,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5335,7 +9154,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5349,6 +9169,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5358,7 +9195,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5372,6 +9210,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5381,7 +9236,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5395,6 +9251,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5405,7 +9278,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5419,6 +9293,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5428,7 +9319,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5442,6 +9334,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5451,7 +9360,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5465,6 +9375,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5474,7 +9401,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5488,6 +9416,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5497,7 +9442,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5511,6 +9457,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5521,7 +9484,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5535,6 +9499,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5544,7 +9525,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5558,6 +9540,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5567,7 +9566,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5581,6 +9581,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5590,7 +9607,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5604,6 +9622,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5613,7 +9648,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5627,6 +9663,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5636,7 +9689,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5650,6 +9704,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5659,7 +9730,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5673,6 +9745,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5682,7 +9771,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5696,6 +9786,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5705,7 +9812,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5719,6 +9827,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5757,7 +9882,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -5766,7 +9893,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -5781,7 +9921,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5795,6 +9936,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5805,7 +9963,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5819,6 +9978,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5828,7 +10004,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5842,6 +10019,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5851,7 +10045,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5865,6 +10060,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5874,7 +10086,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5888,6 +10101,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5897,7 +10127,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5911,6 +10142,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5921,7 +10169,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5935,6 +10184,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5944,7 +10210,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5958,6 +10225,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5967,7 +10251,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -5981,6 +10266,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -5990,7 +10292,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6004,6 +10307,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6014,7 +10334,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6028,6 +10349,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6037,7 +10375,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6051,6 +10390,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6061,7 +10417,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6075,6 +10432,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6084,7 +10458,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6098,6 +10473,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6107,7 +10499,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6121,6 +10514,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6130,7 +10540,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6144,6 +10555,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6153,7 +10581,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6166,7 +10595,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6176,7 +10622,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6190,6 +10637,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6199,7 +10663,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6213,6 +10678,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6222,7 +10704,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6236,6 +10719,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6274,7 +10774,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -6283,7 +10785,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -6298,7 +10813,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6312,6 +10828,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6322,7 +10855,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6336,6 +10870,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6346,7 +10897,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6360,6 +10912,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6369,7 +10938,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6383,6 +10953,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6392,7 +10979,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6406,6 +10994,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6415,7 +11020,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6429,6 +11035,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6438,7 +11061,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6452,6 +11076,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6462,7 +11103,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6476,6 +11118,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6485,7 +11144,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6499,6 +11159,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6508,7 +11185,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6522,6 +11200,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6531,7 +11226,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6545,6 +11241,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6555,7 +11268,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount);
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6569,6 +11283,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6578,7 +11309,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6592,6 +11324,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6602,7 +11351,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6616,6 +11366,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6625,7 +11392,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6639,6 +11407,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6648,7 +11433,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6662,6 +11448,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6671,7 +11474,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6684,7 +11488,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6694,7 +11515,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6708,6 +11530,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6717,7 +11556,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6731,6 +11571,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6740,7 +11597,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6754,6 +11612,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6792,7 +11667,9 @@ public class CurrencyConverterProject_JACKS
                 "Venezuela - Bs.VES"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -6801,7 +11678,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -6816,7 +11706,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6830,6 +11721,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6840,7 +11748,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6854,6 +11763,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6863,7 +11789,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6877,6 +11804,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6886,7 +11830,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6900,6 +11845,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6909,7 +11871,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6923,6 +11886,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6932,7 +11912,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6946,6 +11927,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6956,7 +11954,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6970,6 +11969,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -6979,7 +11995,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -6993,6 +12010,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7002,7 +12036,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7016,6 +12051,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7025,7 +12077,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7039,6 +12092,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7049,7 +12119,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7063,6 +12134,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7072,7 +12160,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7086,6 +12175,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7096,7 +12202,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7110,6 +12217,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7119,7 +12243,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7133,6 +12258,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7142,7 +12284,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7156,6 +12299,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7165,7 +12325,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7179,6 +12340,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7188,7 +12366,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7201,7 +12380,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7211,7 +12407,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7225,6 +12422,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7234,7 +12448,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7248,6 +12463,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7257,7 +12489,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7271,6 +12504,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7308,7 +12558,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -7317,7 +12569,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -7331,7 +12596,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7345,6 +12611,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -7356,7 +12639,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                 receipt = "=======================================================\n"
+                 if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7370,6 +12654,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7379,7 +12680,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7393,6 +12695,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7402,7 +12721,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7416,6 +12736,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7425,7 +12762,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7439,6 +12777,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7448,7 +12803,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7462,6 +12818,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7472,7 +12845,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -7486,6 +12860,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
 
                break;
@@ -7496,7 +12887,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7510,6 +12902,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7519,7 +12928,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7533,6 +12943,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7542,7 +12969,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7556,6 +12984,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7565,7 +13010,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7579,6 +13025,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7588,7 +13051,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7602,6 +13066,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7612,7 +13093,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7626,6 +13108,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7635,7 +13134,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7649,6 +13149,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7658,7 +13175,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7672,6 +13190,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7681,7 +13216,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7694,7 +13230,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7704,7 +13257,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7718,6 +13272,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7728,7 +13299,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7742,6 +13314,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7751,7 +13340,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -7765,6 +13355,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -7802,7 +13409,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -7811,7 +13420,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -7825,7 +13447,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7839,6 +13462,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -7850,7 +13490,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                 receipt = "=======================================================\n"
+                 if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7864,6 +13505,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7873,7 +13531,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7887,6 +13546,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7896,7 +13572,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7910,6 +13587,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7919,7 +13613,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7933,6 +13628,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7942,7 +13654,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -7956,6 +13669,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -7966,7 +13696,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -7980,6 +13711,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
 
                break;
@@ -7990,7 +13738,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8004,6 +13753,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8013,7 +13779,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8027,6 +13794,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8036,7 +13820,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8050,6 +13835,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8059,7 +13861,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8073,6 +13876,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8082,7 +13902,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8096,6 +13917,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8106,7 +13944,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8120,6 +13959,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8129,7 +13985,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8143,6 +14000,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8152,7 +14026,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8166,6 +14041,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8175,7 +14067,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8188,7 +14081,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8198,7 +14108,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8212,6 +14123,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8222,7 +14150,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8236,6 +14165,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8245,7 +14191,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -8259,6 +14206,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -8296,7 +14260,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -8305,7 +14271,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -8319,7 +14298,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8333,6 +14313,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -8344,7 +14341,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                 receipt = "=======================================================\n"
+                 if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8358,6 +14356,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8367,7 +14382,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8381,6 +14397,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8390,7 +14423,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8404,6 +14438,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8413,7 +14464,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8427,6 +14479,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8436,7 +14505,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8450,6 +14520,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8460,7 +14547,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -8474,6 +14562,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
 
                break;
@@ -8484,7 +14589,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8498,6 +14604,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8507,7 +14630,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8521,6 +14645,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8530,7 +14671,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8544,6 +14686,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8553,7 +14712,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8567,6 +14727,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8576,7 +14753,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8590,6 +14768,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8600,7 +14795,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8614,6 +14810,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8623,7 +14836,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8637,6 +14851,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8646,7 +14877,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8660,6 +14892,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8669,7 +14918,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8682,7 +14932,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8692,7 +14959,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8706,6 +14974,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8716,7 +15001,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8730,6 +15016,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8739,7 +15042,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -8753,6 +15057,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -8790,7 +15111,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -8799,7 +15122,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -8813,7 +15149,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8827,6 +15164,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -8838,7 +15192,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                 receipt = "=======================================================\n"
+                 if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8852,6 +15207,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8861,7 +15233,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8875,6 +15248,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8884,7 +15274,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8898,6 +15289,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8907,7 +15315,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8921,6 +15330,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8930,7 +15356,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8944,6 +15371,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -8954,7 +15398,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -8968,6 +15413,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
 
                break;
@@ -8978,7 +15440,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -8992,6 +15455,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9001,7 +15481,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9015,6 +15496,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9024,7 +15522,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9038,6 +15537,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9047,7 +15563,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9061,6 +15578,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9070,7 +15604,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9084,6 +15619,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9094,7 +15646,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9108,6 +15661,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9117,7 +15687,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9131,6 +15702,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9140,7 +15728,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9154,6 +15743,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9163,7 +15769,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9176,7 +15783,24 @@ public class CurrencyConverterProject_JACKS
                                + "=======================================================\n";
                
                                
-                JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+                }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9186,7 +15810,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9200,6 +15825,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9210,7 +15852,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9224,6 +15867,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9233,7 +15893,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9247,6 +15908,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9307,7 +15985,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9321,6 +16000,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
        
@@ -9332,7 +16028,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-             receipt = "=======================================================\n"
+             if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9346,6 +16043,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9355,7 +16069,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9369,6 +16084,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9378,7 +16110,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9392,6 +16125,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9401,7 +16151,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9415,6 +16166,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9424,7 +16192,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9438,6 +16207,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9448,7 +16234,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -9462,6 +16249,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                break;
 
@@ -9472,7 +16276,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9486,6 +16291,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9495,7 +16317,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9509,6 +16332,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9518,7 +16358,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9532,6 +16373,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9541,7 +16399,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9555,6 +16414,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9564,7 +16440,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9578,6 +16455,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9588,7 +16482,8 @@ public class CurrencyConverterProject_JACKS
                 formattedAmount = String.format("%.2f", EndAmount);
 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                               + "                  Successful Transaction               \n"
                               + "=======================================================\n"
                               + ""
@@ -9602,6 +16497,23 @@ public class CurrencyConverterProject_JACKS
              
                              
                JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                break;
 
@@ -9611,7 +16523,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9625,6 +16538,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9634,7 +16564,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9648,6 +16579,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9657,7 +16605,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9671,6 +16620,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9680,7 +16646,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9693,7 +16660,24 @@ public class CurrencyConverterProject_JACKS
                            + "=======================================================\n";
            
                            
-            JOptionPane.showMessageDialog(null, receipt + "This country also uses your current currency" );
+            }
+
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9704,7 +16688,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9718,6 +16703,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9727,7 +16729,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                   receipt = "=======================================================\n"
+                   if (languageValue == 1){
+String receipt = "=======================================================\n"
                            + "                  Successful Transaction               \n"
                            + "=======================================================\n"
                            + ""
@@ -9741,6 +16744,23 @@ public class CurrencyConverterProject_JACKS
            
                            
             JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
             break;
 
@@ -9776,7 +16796,9 @@ public class CurrencyConverterProject_JACKS
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -9785,7 +16807,20 @@ public class CurrencyConverterProject_JACKS
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -9799,7 +16834,8 @@ public class CurrencyConverterProject_JACKS
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9813,6 +16849,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -9823,7 +16876,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9837,6 +16891,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9846,7 +16917,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9860,6 +16932,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9869,7 +16958,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9883,6 +16973,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9892,7 +16999,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9906,6 +17014,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9916,7 +17041,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9930,6 +17056,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9939,7 +17082,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9953,6 +17097,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9962,7 +17123,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9976,6 +17138,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -9985,7 +17164,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -9999,6 +17179,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10008,7 +17205,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10022,6 +17220,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10032,7 +17247,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10046,6 +17262,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10055,7 +17288,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10069,6 +17303,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10078,7 +17329,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10092,6 +17344,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10101,7 +17370,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10115,6 +17385,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " NIO          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " NIO             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10124,7 +17411,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10138,6 +17426,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10147,7 +17452,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10161,6 +17467,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10170,7 +17493,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10184,6 +17508,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10193,7 +17534,8 @@ public class CurrencyConverterProject_JACKS
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10207,6 +17549,23 @@ public class CurrencyConverterProject_JACKS
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10242,7 +17601,9 @@ public static void $NIOConverter()
                 "Canada - C$CAD"
         };
 
-        String choice = (String) JOptionPane.showInputDialog
+        String choice;
+        if (languageValue == 1){
+        choice = (String) JOptionPane.showInputDialog
         (
             null, 
             "Choose the target currency", 
@@ -10251,7 +17612,20 @@ public static void $NIOConverter()
             null, 
             EndGoal, 
             EndGoal[0]
-        ); 
+        );
+        }
+        else{
+                choice = (String) JOptionPane.showInputDialog
+                (
+                null, 
+                "Elija la moneda de destino", 
+                "Convertidor de divisas", 
+                JOptionPane.QUESTION_MESSAGE, 
+                null, 
+                EndGoal, 
+                EndGoal[0]
+                );    
+        } 
 
         switch (choice) 
         {
@@ -10265,7 +17639,8 @@ public static void $NIOConverter()
                 String formattedRate = String.format("%.2f", rate);
                 String formattedAmount = String.format("%.2f", EndAmount); 
 
-                String receipt = "=======================================================\n"
+                if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10279,6 +17654,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
            
@@ -10289,7 +17681,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10303,6 +17696,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10312,7 +17722,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10326,6 +17737,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10335,7 +17763,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10349,6 +17778,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10358,7 +17804,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10372,6 +17819,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10382,7 +17846,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10396,6 +17861,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10405,7 +17887,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10419,6 +17902,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10428,7 +17928,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10442,6 +17943,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10451,7 +17969,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10465,6 +17984,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10474,7 +18010,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10488,6 +18025,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10498,7 +18052,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                        receipt = "=======================================================\n"
+                        if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10512,6 +18067,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10521,7 +18093,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10535,6 +18108,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10544,7 +18134,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10558,6 +18149,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  L" + formattedRate + " HNL          \n"
+                        + "Cantidad Convertida:  L" + formattedAmount + " HNL             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10567,7 +18175,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10581,6 +18190,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10590,7 +18216,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10604,6 +18231,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  ₡" + formattedRate + " CRC          \n"
+                        + "Cantidad Convertida:  ₡" + formattedAmount + " CRC             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10613,7 +18257,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10627,6 +18272,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  BZ$" + formattedRate + " BZD          \n"
+                        + "Cantidad Convertida:  BZ$" + formattedAmount + " BZD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10636,7 +18298,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10650,6 +18313,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt);
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  C$" + formattedRate + " CAD          \n"
+                        + "Cantidad Convertida:  C$" + formattedAmount + " CAD             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10659,7 +18339,8 @@ public static void $NIOConverter()
                 formattedRate = String.format("%.2f", rate);
                 formattedAmount = String.format("%.2f", EndAmount); 
 
-                       receipt = "=======================================================\n"
+                       if (languageValue == 1){
+String receipt = "=======================================================\n"
                                + "                  Successful Transaction               \n"
                                + "=======================================================\n"
                                + ""
@@ -10673,6 +18354,23 @@ public static void $NIOConverter()
                
                                
                 JOptionPane.showMessageDialog(null, receipt );
+}
+else {
+                String receipt = "=======================================================\n"
+                        + "                  Transacción Exitosa               \n"
+                        + "=======================================================\n"
+                        + ""
+                        + "Cantidad Inicial: $" + finalValue1 + " USD              \n"
+                        + "Tasa de Conversión: $1 USD  =  Bs." + formattedRate + " VES          \n"
+                        + "Cantidad Convertida:  Bs." + formattedAmount + " VES             \n"
+                        + ""
+                        + "=======================================================\n"
+                        + "          ¡Gracias por usar nuestro convertidor        \n"
+                        + "=======================================================\n";
+               
+                               
+                JOptionPane.showMessageDialog(null, receipt );
+                }
 
                 break;
 
@@ -10682,7 +18380,7 @@ public static void $NIOConverter()
 
     public static void CALCULATIONSDialog() 
     {
-
+        if (languageValue == 1){
         JDialog dialog = new JDialog();
         dialog.setTitle("Amount");
         dialog.setModal(true);
@@ -10737,15 +18435,17 @@ public static void $NIOConverter()
                         return;
                 }
 
-                JOptionPane.showMessageDialog(null, "Final Stored Value  $" + String.format("%.2f", finalValue1));
+                JOptionPane.showMessageDialog(null, "Final Stored Value  $" + String.format("%.2f", finalValue1), "Final Amount", JOptionPane.INFORMATION_MESSAGE);
                 dialog.dispose();
                 } 
                 catch (NumberFormatException ex) 
                 {
                 JOptionPane.showMessageDialog(dialog, "Invalid number format!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
-        }
-        });
+                        }
+                }
+        );
+        
 
         dialog.add(minusButton);
         dialog.add(numberField);
@@ -10754,9 +18454,122 @@ public static void $NIOConverter()
 
         dialog.setLocationRelativeTo(null);
         dialog.setVisible(true);
+        }
+        else {
+                JDialog dialog = new JDialog();
+                dialog.setTitle("Cantidad");
+                dialog.setModal(true);
+                dialog.setSize(300, 150);
+                dialog.setLayout(new FlowLayout());
+        
+        
+        
+                JTextField numberField = new JTextField("0", 5);
+                numberField.setHorizontalAlignment(JTextField.CENTER);
+        
+        
+        
+                JButton plusButton = new JButton("+");
+                JButton minusButton = new JButton("-");
+        
+        
+        
+                plusButton.addActionListener(e -> 
+                {
+                    int num = Integer.parseInt(numberField.getText());
+                    numberField.setText(String.valueOf(num + 1));
+                });
+        
+        
+        
+                minusButton.addActionListener(e -> 
+                {
+                    int num = Integer.parseInt(numberField.getText());
+                    numberField.setText(String.valueOf(num - 1));
+                });
+        
+        
+        
+                JButton okButton = new JButton("OK");
+        
+        
+                okButton.addActionListener(e -> 
+                {
+                String input = numberField.getText();
+                int response = JOptionPane.showConfirmDialog(dialog, "Confirmar monto:  $" + input, " Confirmación", JOptionPane.YES_NO_OPTION);
+        
+                if (response == JOptionPane.YES_OPTION) 
+                {
+                        try 
+                        {
+                        finalValue1 = Double.parseDouble(input);
+                        
+                        if (finalValue1 <= 0) 
+                        {
+                                JOptionPane.showMessageDialog(dialog, "No se permiten números negativos!", "Error", JOptionPane.ERROR_MESSAGE);
+                                return;
+                        }
+        
+                        JOptionPane.showMessageDialog(null, "Valor Final Almacenado  $" + String.format("%.2f", finalValue1), "Importe Final", JOptionPane.INFORMATION_MESSAGE);
+                        dialog.dispose();
+                        } 
+                        catch (NumberFormatException ex) 
+                        {
+                        JOptionPane.showMessageDialog(dialog, "¡Formato de número no válido!", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                                }
+                        }
+                );
+                
+        
+                dialog.add(minusButton);
+                dialog.add(numberField);
+                dialog.add(plusButton);
+                dialog.add(okButton);
+        
+                dialog.setLocationRelativeTo(null);
+                dialog.setVisible(true);   
+        }
     }
 
-    
+    public static int LanguageSelector() {
+        ButtonGroup group = new ButtonGroup();
+        JRadioButton english1RadioButton = new JRadioButton("English");
+        JRadioButton english2RadioButton = new JRadioButton("Español");
+        group.add(english1RadioButton);
+        group.add(english2RadioButton);
+        english1RadioButton.setSelected(true);
+        JPanel panel = new JPanel();
+        panel.add(english1RadioButton);
+        panel.add(english2RadioButton);
+        int option = JOptionPane.showOptionDialog(
+                null,
+                panel,
+                "Select Language",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                null,
+                null
+        );
+        languageValue = 0;
+        if (option == JOptionPane.OK_OPTION) {
+            if (english1RadioButton.isSelected()) {
+                languageValue = 1;
+            } else if (english2RadioButton.isSelected()) {
+                languageValue = 2;
+            }
+        }
+        return languageValue;
+}
+
+    public static int getLanguageValue() {
+        return languageValue;
+    }
+
+    public static void setLanguageValue(int languageValue) {
+        CurrencyConverterProject_JACKS.languageValue = languageValue;
+    }
 
 
 
